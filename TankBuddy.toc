@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: Tank Buddy
+## Notes: Notices Party/Raid members when you use last stand, shield wall, lifegiving gem, berserk, or when your taunt/growl/mocking blow/holy strike/hand of reckoning/earth shock fails. Can also remove salvation automatically.
+## Dependencies:
+## SavedVariables: TBSettings
+## OptionalDeps: CT_RaidAssist
+TankBuddy.xml
