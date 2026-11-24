@@ -21,21 +21,21 @@ A Turtle WoW 1.12.1 tank announcement addon based on **Tank Buddy 2.0.1** (by Ko
   - `$tl`: Target level
   - `$tt`: Target creature type
   - `$res`: Combat result for `Holy Strike` (`DODGED`, `PARRIED`, `BLOCKED`, `MISSED`)
-  - `$sec`: Duration in seconds (`Shield Wall`, `Last Stand`, `Lifegiving Gem`)
-  - `$hp`: Hitpoints gained (`Last Stand`, `Lifegiving Gem`)
+  - `$sec`: Duration in seconds (`Shield Wall`, `Last Stand`, `Lifegiving Gem`, `Berserk`)
+  - `$hp`: Hitpoints gained (`Last Stand`, `Lifegiving Gem`, `Berserk`)
 - **Auto-Remove Blessing of Salvation:** Automatically cancels Salvation buffs, with an option to only remove while in Defensive Stance (Warrior) or Bear Form (Druid).
 - **Slash Commands:** `/tankbuddy` or `/tb` (open options UI), `/tb on`, `/tb off`.
 
 ## What Was Added & Fixed
 
 - **Merged ParryMissAnnouncer:** Added `Holy Strike` (Dodge/Parry/Block/Miss), `Hand of Reckoning` (Resist/Immune) for Paladin, and `Earth Shock` (Resist/Immune) for Shaman.
-- **Added Bear Druid Berserk:** Announces `You gain Berserk.` only while in Bear / Dire Bear Form.
+- **Added Bear Druid Berserk:** Announces `You gain Berserk.` only while in Bear / Dire Bear Form, with `$sec` (20s) and `$hp` (+20% max HP) support.
 - **Added `Immune` Detection:** `Taunt`, `Growl`, `Hand of Reckoning`, and `Earth Shock` now announce both resisted and immune outcomes.
 - **Added `Lifegiving Gem` Tab:** Available to Druid, Paladin, and Shaman in addition to Warrior (fixes nil crash when triggering Gift of Life).
-- **Fixed WoW 1.12 Bugs:**
+- **Fixed WoW 1.12 & Turtle WoW Bugs:**
+  - Fixed `TB_GetSWDuration` to look up `Improved Shield Wall` dynamically in Protection (`+1s` / `+2s` on Turtle WoW) and removed the TBC 2.0 `Improved Disciplines` duration check.
   - Fixed `TB_PlayerBuff` to use `GetPlayerBuff` / `GetPlayerBuffTexture` for accurate `CancelPlayerBuff` indexing.
   - Fixed raid detection when solo in a raid subgroup (`UnitInRaid("player")` checked before `GetNumPartyMembers()`).
-  - Fixed `TB_GetSWDuration` nil arithmetic on `GetTalentInfo(1, 18)` in 1.12.
   - Fixed `Last Stand` and `Lifegiving Gem` overwriting `TBText` when both `$sec` and `$hp` are used.
   - Added `Raid Warning` fallback to `RAID` when the player is neither Raid Leader nor Officer.
   - Guarded empty/nil `Custom` channel strings and allowed clearing custom channels in the UI.

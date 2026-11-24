@@ -441,6 +441,9 @@ function TB_Announce(TBAbility, TBTest, TBResult)
 		elseif (TBAbility == TB_GUI_LG) then
 			TBText = string.gsub(TBText, "$sec", "20");
 			TBText = string.gsub(TBText, "$hp", math.floor((UnitHealthMax("player")/115)*15));
+		elseif (TBAbility == TB_GUI_Berserk) then
+			TBText = string.gsub(TBText, "$sec", "20");
+			TBText = string.gsub(TBText, "$hp", math.floor((UnitHealthMax("player")/120)*20));
 		end
 		
 		if (TBTest) then
@@ -517,17 +520,14 @@ function TB_Sendmsg(msg)
 end
 
 function TB_GetSWDuration()
-	--nameTalent, iconPath, tier, column, currentRank, maxRank, isExceptional, meetsPrereq = GetTalentInfo(tabIndex, talentIndex);
-	local SW_dur = 10; --Default duration
-	local _, _, _, _, currRank = GetTalentInfo(3, 13); --Get rank of Improved Shield Wall
-	if (currRank == 1) then
-		SW_dur = SW_dur + 3;						--Rank 1 gives 3 seconds extra
-	elseif (currRank == 2) then
-		SW_dur = SW_dur + 5;						--Rank 2 gives 5 seconds extra (total)
-	end
-	_, _, _, _, currRank = GetTalentInfo(1, 18);			--Get rank of Improved Disciplines (New in 2.0)
-	if (currRank and currRank > 0) then
-		SW_dur = SW_dur + (2 * currRank);			--Each rank gives 2 seconds extra
+	local SW_dur = 10; -- Default duration in 1.12
+	local numTalents = GetNumTalents(3) or 0;
+	for i = 1, numTalents, 1 do
+		local name, _, _, _, currRank = GetTalentInfo(3, i);
+		if (name == "Improved Shield Wall" and currRank and currRank > 0) then
+			SW_dur = SW_dur + currRank; -- Turtle WoW: +1s (Rank 1) / +2s (Rank 2)
+			break;
+		end
 	end
 	return SW_dur;
 end
